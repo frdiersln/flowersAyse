@@ -8,20 +8,62 @@
 <body>
     <div class="sky"></div>
     <div class="sun"><div class="round"></div></div>
+    <h2>A harfi için çiçegi seçiniz: </h2>
     <div class="land">
         <div class="landpart lp1"></div>
         <div class="landpart lp2"></div>
     </div>
-
+    <div class="flowers">
+        <div class="leftFlowersWrapper">
+            <div class="Aflower">
+                <img class="AflowerStalks" src="./imgs/flowersV1/A/A_v1_stalks.png" alt="">
+                <img class="AflowerFlowers" src="./imgs/flowersV1/A/A_v1_flowers.png" alt="">
+            </div>
+            <div class="Yflower">
+                <img class="YflowerStalks" src="./imgs/flowersV1/Y/Y_v1_stalks.png" alt="">
+                <img class="YflowerFlowers" src="./imgs/flowersV1/Y/Y_v1_flowers.png" alt="">
+            </div>
+            <div class="Sflower">
+                <img class="SflowerStalks" src="./imgs/flowersV1/S/S_v1_stalks.png" alt="">
+                <img class="SflowerFlowers" src="./imgs/flowersV1/S/S_v1_flowers.png" alt="">
+            </div>
+            <div class="Eflower">
+                <img class="EflowerStalks" src="./imgs/flowersV1/E/E_v1_stalks.png" alt="">
+                <img class="EflowerFlowers" src="./imgs/flowersV1/E/E_v1_flowers.png" alt="">
+            </div>
+        </div>
+        <div class="rightFlowersWrapper">
+            <div class="Aflower">
+                <img class="AflowerStalks" src="./imgs/flowersV2/A/A_v2_stalks.png" alt="">
+                <img class="AflowerFlowers" src="./imgs/flowersV2/A/A_v2_flowers.png" alt="">
+            </div>
+            <div class="Yflower">
+                <img class="YflowerStalks" src="./imgs/flowersV2/Y/Y_v2_stalks.png" alt="">
+                <img class="YflowerFlowers" src="./imgs/flowersV2/Y/Y_v2_flowers.png" alt="">
+            </div>
+            <div class="Sflower">
+                <img class="SflowerStalks" src="./imgs/flowersV2/S/S_v2_stalks.png" alt="">
+                <img class="SflowerFlowers" src="./imgs/flowersV2/S/S_v2_flowers.png" alt="">
+            </div>
+            <div class="Eflower">
+                <img class="EflowerStalks" src="./imgs/flowersV2/E/E_v2_stalks.png" alt="">
+                <img class="EflowerFlowers" src="./imgs/flowersV2/E/E_v2_flowers.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="bouquet"></div>
 </body>
 </html>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
 body {
     margin: 0;
     padding: 0;
     width: 100dvw;
     height: 100dvh;
+    overflow: hidden;
 }
 .sky {
     background-color: #AEDFF7;
@@ -121,6 +163,68 @@ body {
 .lp2 {
     border-radius: 189% 14% 0 0;
 }
+
+.flowers {
+    width: 100%;
+    height: 341px;
+    position: absolute;
+    bottom: 66px;
+    z-index: 4;
+    display: flex;
+    justify-content: space-around;
+    
+    visibility: hidden;
+}
+
+.leftFlowersWrapper {
+    width: 50%;
+}
+.rightFlowersWrapper {
+    width: 50%;
+}
+
+.flowers img {
+    position: absolute;
+    z-index: 5;
+    width: calc(100dvw * 6 / 10);
+    height: auto;
+    max-width: 890px; 
+    max-height: 389px;
+}
+
+.selectFlowerEffect {
+    filter: drop-shadow(0 0 10px #28bffa); /* Adjust color as needed */
+}
+
+h2 {
+    position: absolute;
+    top: 122px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-size: 4rem;
+    font-family: "Indie Flower", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 5px RGBA(0, 0, 0, 0.33);
+}
+
+#bouquet {
+    position: absolute;
+    top: 50%;
+    left: 141%;
+    transform: translate(-50%, -50%);
+    min-width: 200px;
+    min-height: 200px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #FFEB3B;
+    border-radius: 100%;
+    z-index: 2;
+    box-shadow: 1px 0px 5px RGBA(0, 0, 0, 0.33);
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -144,6 +248,345 @@ body {
  document.addEventListener("DOMContentLoaded", (event) => {
   gsap.registerPlugin(Flip,ScrollTrigger,Observer,ScrollToPlugin,Draggable,MotionPathPlugin,EaselPlugin,PixiPlugin,TextPlugin,RoughEase,ExpoScaleEase,SlowMo,CustomEase)
     gsap.to(".sun", {top: "141px", left: "14%", duration: 6});
+
+    gsap.to(".AflowerStalks", {visibility: "visible", duration: 1});
+    gsap.from(".AflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 2});
+
+    gsap.to(".AflowerFlowers", {visibility: "visible", duration: 1});
+    gsap.fromTo(".AflowerFlowers", 
+        {scale: 0}, 
+        {scale: 1, duration: 4, ease: "power1.inOut", transformOrigin: "center center"}
+    );
+
+    var h2 = document.querySelector("h2");
+    var text = h2.textContent;
+    h2.textContent = "";
+
+    gsap.to(h2, {text: text, duration: 4, ease: "power1.inOut"});
  });
 
+
+ // initating finished
+
+ var section = "A";
+
+ var letterA = "";
+ var letterY = "";
+ var letterS = "";
+ var letterE = "";
+
+ function selectLetterEffect(letter, version) {
+    if (version === "left"){
+        if(letter === "A") {
+            gsap.to(".rightFlowersWrapper .AflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".rightFlowersWrapper .AflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".leftFlowersWrapper .Aflower img", {
+            onComplete: function() {
+                document.querySelector(".leftFlowersWrapper .Aflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".leftFlowersWrapper .Aflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".YflowerStalks", {visibility: "visible", delay: 4, duration: 1});
+            gsap.from(".YflowerStalks", {scaleY: 0, transformOrigin: "bottom",  delay: 4, duration: 2});
+
+            gsap.to(".YflowerFlowers", {visibility: "visible",  delay: 4, duration: 1});
+            gsap.fromTo(".YflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4,  delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "Y harfi için çiçegi seçiniz:", duration: 4,  delay: 4, ease: "power1.inOut"});
+        }else if(letter === "Y") {
+            gsap.to(".rightFlowersWrapper .YflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".rightFlowersWrapper .YflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".leftFlowersWrapper .Yflower img", {
+            onComplete: function() {
+                document.querySelector(".leftFlowersWrapper .Yflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".leftFlowersWrapper .Yflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".SflowerStalks", {visibility: "visible",  duration: 1,  delay: 4});
+            gsap.from(".SflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 2,  delay: 4});
+
+            gsap.to(".SflowerFlowers", {visibility: "visible", duration: 1,  delay: 4});
+            gsap.fromTo(".SflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4,  delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "Ş harfi için çiçegi seçiniz:", duration: 4,  delay: 4, ease: "power1.inOut"});
+        }else if(letter === "S") {
+            gsap.to(".rightFlowersWrapper .SflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".rightFlowersWrapper .SflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".leftFlowersWrapper .Sflower img", {
+            onComplete: function() {
+                document.querySelector(".leftFlowersWrapper .Sflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".leftFlowersWrapper .Sflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".EflowerStalks", {visibility: "visible", delay: 4, duration: 1});
+            gsap.from(".EflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 2, delay: 4});
+
+            gsap.to(".EflowerFlowers", {visibility: "visible", delay: 4, duration: 1});
+            gsap.fromTo(".EflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4, delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "E harfi için çiçegi seçiniz:", duration: 4, delay: 4, ease: "power1.inOut"});
+        }else if(letter === "E") {
+            gsap.to(".rightFlowersWrapper .EflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".rightFlowersWrapper .EflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".leftFlowersWrapper .Eflower img", {
+            onComplete: function() {
+                document.querySelector(".leftFlowersWrapper .Eflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".leftFlowersWrapper .Eflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+        }else {
+            return;
+        }
+    }else{
+        if(letter === "A") {
+            gsap.to(".leftFlowersWrapper .AflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".leftFlowersWrapper .AflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".rightFlowersWrapper .Aflower img", {
+            onComplete: function() {
+                document.querySelector(".rightFlowersWrapper .Aflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".rightFlowersWrapper .Aflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".YflowerStalks", {visibility: "visible", delay: 4, duration: 1});
+            gsap.from(".YflowerStalks", {scaleY: 0, transformOrigin: "bottom",  delay: 4, duration: 2});
+
+            gsap.to(".YflowerFlowers", {visibility: "visible",  delay: 4, duration: 1});
+            gsap.fromTo(".YflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4,  delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "Y harfi için çiçegi seçiniz:", duration: 4,  delay: 4, ease: "power1.inOut"});
+        }else if(letter === "Y") {
+            gsap.to(".leftFlowersWrapper .YflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".leftFlowersWrapper .YflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".rightFlowersWrapper .Yflower img", {
+            onComplete: function() {
+                document.querySelector(".rightFlowersWrapper .Yflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".rightFlowersWrapper .Yflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".SflowerStalks", {visibility: "visible",  duration: 1,  delay: 4});
+            gsap.from(".SflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 2,  delay: 4});
+
+            gsap.to(".SflowerFlowers", {visibility: "visible", duration: 1,  delay: 4});
+            gsap.fromTo(".SflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4,  delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "Ş harfi için çiçegi seçiniz:", duration: 4,  delay: 4, ease: "power1.inOut"});
+        }else if(letter === "S") {
+            gsap.to(".leftFlowersWrapper .SflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".leftFlowersWrapper .SflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".rightFlowersWrapper .Sflower img", {
+            onComplete: function() {
+                document.querySelector(".rightFlowersWrapper .Sflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".rightFlowersWrapper .Sflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            gsap.to(".EflowerStalks", {visibility: "visible", delay: 4, duration: 1});
+            gsap.from(".EflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 2, delay: 4});
+
+            gsap.to(".EflowerFlowers", {visibility: "visible", delay: 4, duration: 1});
+            gsap.fromTo(".EflowerFlowers", 
+                {scale: 0}, 
+                {scale: 1, duration: 4, delay: 4, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+
+            gsap.to(h2, {text: "E harfi için çiçegi seçiniz:", duration: 4, delay: 4, ease: "power1.inOut"});
+        }else if(letter === "E") {
+            gsap.to(".leftFlowersWrapper .EflowerStalks", {scaleY: 0, transformOrigin: "bottom", duration: 4});
+            gsap.fromTo(".leftFlowersWrapper .EflowerFlowers", 
+                {scale: 1}, 
+                {scale: 0, duration: 1, ease: "power1.inOut", transformOrigin: "center center"}
+            );
+
+            gsap.to(".rightFlowersWrapper .Eflower img", {
+            onComplete: function() {
+                document.querySelector(".rightFlowersWrapper .Eflower img").classList.add("selectFlowerEffect");
+            },
+            duration: 1,
+            ease: "power2.inOut"
+            });
+            gsap.to(".rightFlowersWrapper .Eflower img", {
+            opacity: 0,
+            scale: 1.22,
+            duration: 4,
+            ease: "power2.inOut"
+            });
+
+            var h2 = document.querySelector("h2");
+            var text = h2.textContent;
+            h2.textContent = "";
+        }else {
+            return;
+        }
+    }
+ }
+
+document.querySelector(".leftFlowersWrapper").addEventListener("click", function() {
+    if (section === "A") {
+        selectLetterEffect("A", "left");
+        letterA = "v1";
+        section = "Y";
+    }else if (section === "Y") {
+        selectLetterEffect("Y", "left");
+        letterY = "v1";
+        section = "S";
+    }else if (section === "S") {
+        selectLetterEffect("S", "left");
+        letterS = "v1";
+        section = "E";
+    }else if (section === "E") {
+        selectLetterEffect("E", "left");
+        letterE = "v1";
+        section = "F";
+        final([letterA, letterY, letterS, letterE]);
+    }
+});
+
+document.querySelector(".rightFlowersWrapper").addEventListener("click", function() {
+    if (section === "A") {
+        selectLetterEffect("A", "right");
+        letterA = "v2";
+        section = "Y";
+    }else if (section === "Y") {
+        selectLetterEffect("Y", "right");
+        letterY = "v2";
+        section = "S";
+    }else if (section === "S") {
+        selectLetterEffect("S", "right");
+        letterS = "v2";
+        section = "E";
+    }else if (section === "E") {
+        selectLetterEffect("E", "right");
+        letterE = "v2";
+        final([letterA, letterY, letterS, letterE]);
+    }
+});
+
+function final(results){
+    
+}
 </script>
